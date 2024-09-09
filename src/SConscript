@@ -1,0 +1,8 @@
+from building import *
+
+cwd     = GetCurrentDir()
+src     = Glob('*.c')
+
+group = DefineGroup('heartbeat', src, depend = ['PKG_USING_HEARTBEAT'], CPPPATH = CPPPATH)
+
+Return('group')
