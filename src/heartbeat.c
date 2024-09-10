@@ -10,7 +10,7 @@
 #include <rtdevice.h>
 #include "board.h"
 
-#ifndef PKG_HEARTBEAT_LED_PIN
+#if !defined(PKG_HEARTBEAT_LED_PIN) || (PKG_HEARTBEAT_LED_PIN == -1)
 #error "Please define at least one PKG_HEARTBEAT_LED_PIN"
 #endif
 
@@ -26,9 +26,9 @@ static rt_uint32_t beat_time_table[] = {70, 315, 70, 945};
 static void heartbeat_cb(void *parameter)
 {
     if (index % 2) {
-        rt_pin_write(HEARTBEAT_LED_PIN, ~HEARTBEAT_LED_ACTIVE_LOGIC);
+        rt_pin_write(PKG_HEARTBEAT_LED_PIN, ~PKG_HEARTBEAT_LED_ACTIVE_LOGIC);
     } else {
-        rt_pin_write(HEARTBEAT_LED_PIN, HEARTBEAT_LED_ACTIVE_LOGIC);
+        rt_pin_write(PKG_HEARTBEAT_LED_PIN, PKG_HEARTBEAT_LED_ACTIVE_LOGIC);
     }
 
     timeout = rt_tick_from_millisecond(beat_time_table[index]);
@@ -42,8 +42,8 @@ static void heartbeat_cb(void *parameter)
 
 int heartbeat_init(void)
 {
-    rt_pin_mode(HEARTBEAT_LED_PIN, PIN_MODE_INPUT_PULLUP);
-    rt_pin_write(HEARTBEAT_LED_PIN, ~HEARTBEAT_LED_ACTIVE_LOGIC); /* close led */
+    rt_pin_mode(PKG_HEARTBEAT_LED_PIN, PIN_MODE_INPUT_PULLUP);
+    rt_pin_write(PKG_HEARTBEAT_LED_PIN, ~PKG_HEARTBEAT_LED_ACTIVE_LOGIC); /* close led */
 
     heartbeat = rt_timer_create("heartbeat", heartbeat_cb,
                                 RT_NULL, 10,
