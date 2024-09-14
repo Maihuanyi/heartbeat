@@ -29,7 +29,7 @@ heartbeat
 使用 Heartbeat package 需要在 RT-Thread 的包管理器中选择它，具体路径如下：
 ```
 RT-Thread online packages
-    peripheral libraries and drivers --->
+    system packages  --->
         [*] heartbeat: A heartbeat led package
 ```
 
