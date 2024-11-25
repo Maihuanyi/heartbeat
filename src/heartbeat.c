@@ -42,7 +42,7 @@ static void heartbeat_cb(void *parameter)
 
 int heartbeat_init(void)
 {
-    rt_pin_mode(PKG_HEARTBEAT_LED_PIN, PIN_MODE_INPUT_PULLUP);
+    rt_pin_mode(PKG_HEARTBEAT_LED_PIN, PIN_MODE_OUTPUT);
     rt_pin_write(PKG_HEARTBEAT_LED_PIN, ~PKG_HEARTBEAT_LED_ACTIVE_LOGIC); /* close led */
 
     heartbeat = rt_timer_create("heartbeat", heartbeat_cb,
